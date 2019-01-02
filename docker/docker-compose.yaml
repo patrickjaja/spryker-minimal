@@ -1,0 +1,76 @@
+version: '3.5'
+services:
+  php:
+    build: .
+    image: spryker-minimal-php
+    container_name: spryker-minimal-php
+    env_file:
+      - spryker.env
+    volumes:
+      - ../:/data/shop/development
+    ports:
+      - "8080:8080"
+    networks:
+      - spryker-minimal-network
+  app:
+    image: nginx
+    container_name: spryker-minimal-app
+    volumes:
+      - ./spryker.conf:/etc/nginx/conf.d/yves_de_spryker.conf
+      - ../:/data/shop/development
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+    networks:
+      - spryker-minimal-network
+  redis:
+    image: redis:3.2.11
+    container_name: spryker-minimal-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-storage:/data
+    ports:
+      - 6379:6379
+    networks:
+      - spryker-minimal-network
+  postgres:
+    image: postgres:9.4.16
+    container_name: spryker-minimal-postgres
+    env_file:
+      - spryker.env
+    volumes:
+      - postgres-database:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - spryker-minimal-network
+  elasticsearch:
+    image: elasticsearch:5.6.8
+    container_name: spryker-minimal-elasticsearch
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - elasticsearch-storage:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - spryker-minimal-network
+  rabbitmq:
+    image: rabbitmq:3.7.3-management
+    container_name: spryker-minimal-rabbitmq
+    env_file:
+      - spryker.env
+    ports:
+      - 15672:15672
+    networks:
+      - spryker-minimal-network
+networks:
+  spryker-minimal-network:
+    name: spryker-minimal-global-network
+volumes:
+  postgres-database:
+    external: true
+  redis-storage:
+    external: true
+  elasticsearch-storage:
+    external: true
