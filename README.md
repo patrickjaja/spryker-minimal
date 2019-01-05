@@ -1,9 +1,8 @@
- - docker build -t spryker-minimal .
- - composer install --optimize-autoloader --no-interaction
+ - composer install --no-interaction
  
  
  # copy postgres database to local
- - docker cp spryker-minimal-postgres:/var/lib/postgresql/data ../current/data/postgres
+ # - docker cp spryker-minimal-postgres:/var/lib/postgresql/data ../current/data/postgres
  
  # prepare rmq
  docker exec -i spryker-minimal-rabbitmq rabbitmqctl add_vhost /DE_development_zed

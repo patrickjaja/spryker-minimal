@@ -6,6 +6,7 @@ use Pyz\Zed\DataImport\Business\Model\Customer\CustomerWriterStep;
 use Pyz\Zed\DataImport\Business\Model\DataFormatter\DataImportDataFormatter;
 use Pyz\Zed\DataImport\Business\Model\DataFormatter\DataImportDataFormatterInterface;
 use Pyz\Zed\DataImport\Business\Model\Glossary\GlossaryWriterStep;
+use Pyz\Zed\DataImport\Business\Model\Locale\LocaleNameToIdLocaleStep;
 use Pyz\Zed\DataImport\Business\Model\PropelExecutor;
 use Pyz\Zed\DataImport\Business\Model\PropelExecutorInterface;
 use Pyz\Zed\DataImport\Business\Model\Store\StoreReader;
@@ -91,6 +92,17 @@ class DataImportBusinessFactory extends SprykerDataImportBusinessFactory
         $dataImporter->addDataSetStepBroker($dataSetStepBroker);
 
         return $dataImporter;
+    }
+
+    /**
+     * @param string $source
+     * @param string $target
+     *
+     * @return \Pyz\Zed\DataImport\Business\Model\Locale\LocaleNameToIdLocaleStep
+     */
+    protected function createLocaleNameToIdStep($source = LocaleNameToIdLocaleStep::KEY_SOURCE, $target = LocaleNameToIdLocaleStep::KEY_TARGET)
+    {
+        return new LocaleNameToIdLocaleStep($source, $target);
     }
 
     /**

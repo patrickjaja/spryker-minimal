@@ -28,8 +28,6 @@ services:
     image: redis:3.2.11
     container_name: spryker-minimal-redis
     command: redis-server --appendonly yes
-    volumes:
-      - redis-storage:/data
     ports:
       - 6379:6379
     networks:
@@ -39,8 +37,6 @@ services:
     container_name: spryker-minimal-postgres
     env_file:
       - spryker.env
-    volumes:
-      - postgres-database:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
@@ -50,7 +46,6 @@ services:
     container_name: spryker-minimal-elasticsearch
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - elasticsearch-storage:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
@@ -67,10 +62,3 @@ services:
 networks:
   spryker-minimal-network:
     name: spryker-minimal-global-network
-volumes:
-  postgres-database:
-    external: true
-  redis-storage:
-    external: true
-  elasticsearch-storage:
-    external: true
