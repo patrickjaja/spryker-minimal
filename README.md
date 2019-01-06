@@ -22,3 +22,6 @@
  ## copy postgres database to local
  - docker cp spryker-minimal-postgres:/var/lib/postgresql/data ../current/data/postgres
  
+ 
+ # Build app image locally
+ - docker build ./docker -t spryker-minimal-php
