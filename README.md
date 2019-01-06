@@ -1,6 +1,7 @@
  # How to install
- - .\docker\docker-compose up -d
- - .\docker\rmq.sh
+ - cd docker
+ - PROJECT_NAME=spryker-minimal docker-compose up -d
+ - rmq.sh
  - docker exec -it spryker-minimal-php composer install --no-interaction
  - docker exec -it spryker-minimal-php vendor/bin/install
  - change hosts file and add 127.0.0.1 zed.de.suite.local and 127.0.0.1 de.suite.local
