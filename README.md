@@ -25,3 +25,6 @@
  
  # Build app image locally
  - docker build ./docker -t spryker-minimal-php
+ 
+ # update modules
+ - git submodule foreach git pull origin master
