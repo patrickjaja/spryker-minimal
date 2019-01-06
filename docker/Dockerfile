@@ -134,6 +134,7 @@ RUN chown ${user}:${group} /usr/local/bin/jenkins.sh \
  && chmod +x /usr/local/bin/jenkins-support
 
 #USER ${user}
+
 #RUN /usr/local/bin/jenkins.sh
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins.sh"]
 
